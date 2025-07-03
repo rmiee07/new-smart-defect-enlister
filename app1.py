@@ -98,11 +98,19 @@ with st.form("defect_form"):
             )
             st.success("✅ Defect logged successfully!")
 
+            # 🔄 Refresh data after submission
+            rows = get_all_defects()
+            df = pd.DataFrame(rows, columns=[
+                "ID", "Reported Date", "Module", "Description", "Severity",
+                "Status", "Assigned To", "Resolution Date", "Image",
+                "Vehicle Model", "Reported By"
+            ])
+
 # -----------------------------
 # 🔍 Filter Defects
 # -----------------------------
 with st.expander("🔍 Filter Defects"):
-    st.subheader("🎛️ Filter Options")
+    st.subheader("🌛 Filter Options")
 
     if not df.empty:
         available_modules = df["Module"].unique()
