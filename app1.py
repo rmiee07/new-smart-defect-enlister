@@ -41,27 +41,27 @@ with st.form("defect_form"):
     st.markdown("### 📝 Enter Defect Details")
 
     col1, col2 = st.columns(2)
-
     with col1:
-        module = st.selectbox("Module Name", [
-    "Engine", "Transmission", "Braking System", "Electrical System",
-    "Fuel System", "Suspension", "Cabin Controls", "Exhaust/Emission",
-    "Cooling System", "Steering System", "Others"])
-# Show input box if "Others" is selected
-if module == "Others":
-    custom_module = st.text_input("Please specify the system")
-    final_module = custom_module
-else:
-    final_module = module
+    module = st.selectbox("Vehicle System", [
+        "Engine", "Transmission", "Braking System", "Electrical System",
+        "Fuel System", "Suspension", "Cabin Controls", "Exhaust/Emission",
+        "Cooling System", "Steering System", "Others"
+    ])
+    if module == "Others":
+        custom_module = st.text_input("Please specify the system")
+        final_module = custom_module
+    else:
+        final_module = module
 
-        severity = st.selectbox("Severity", ["Low", "Medium", "High"])
-        status = st.selectbox("Status", ["Open", "In Progress", "Closed"])
-        vehicle_model = st.selectbox("Vehicle Model", ["Prima 2825", "Prima 3530", "Prima 5530", "Others"])
-        if vehicle_model == "Others":
-    custom_model = st.text_input("Please specify the vehicle model")
-    final_model = custom_model
-else:
-    final_model = vehicle_model
+    severity = st.selectbox("Severity", ["Low", "Medium", "High"])
+    status = st.selectbox("Status", ["Open", "In Progress", "Closed"])
+
+    vehicle_model = st.selectbox("Vehicle Model", ["Prima 2825", "Prima 3530", "Prima 5530", "Others"])
+    if vehicle_model == "Others":
+        custom_model = st.text_input("Please specify the vehicle model")
+        final_model = custom_model
+    else:
+        final_model = vehicle_model
 
     with col2:
         assigned_to = st.text_input("Assigned To")
@@ -69,7 +69,6 @@ else:
         reported_by = st.text_input("Reported By")
         date_reported = st.date_input("Reported On", date.today())
         resolution_date = st.date_input("Resolution Date", date.today())
-
     description = st.text_area("Defect Description")
     image = st.file_uploader("Upload Defect Image (optional)", type=["jpg", "jpeg", "png"])
     confirm = st.checkbox("✅ I confirm the details are correct")
