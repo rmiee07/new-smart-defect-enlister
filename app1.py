@@ -20,7 +20,7 @@ rows = get_all_defects()
 df = pd.DataFrame(rows, columns=[
     "ID", "Reported Date", "Module", "Description", "Severity",
     "Status", "Assigned To", "Resolution Date", "Image",
-    "Vehicle Model", "Reported By"  # Removed Defect Category
+    "Vehicle Model", "Reported By"
 ])
 
 st.markdown("### 📊 Project Summary")
@@ -57,7 +57,7 @@ with st.form("defect_form"):
 
         severity = st.selectbox("Severity", ["Low", "Medium", "High"])
         status = st.selectbox("Status", ["Open", "In Progress", "Closed"])
-        
+
         vehicle_model = st.selectbox("Vehicle Model", ["Prima 2825", "Prima 3530", "Prima 5530", "Others"])
         if vehicle_model == "Others":
             custom_model = st.text_input("Please specify the vehicle model")
@@ -94,7 +94,7 @@ with st.form("defect_form"):
             insert_defect(
                 str(date_reported), final_module, description, severity, status,
                 assigned_to, str(resolution_date), image_path,
-                final_model, reported_by  # No defect_category
+                final_model, reported_by
             )
             st.success("✅ Defect logged successfully!")
 
@@ -105,14 +105,14 @@ with st.expander("🔍 Filter Defects"):
     st.subheader("🎛️ Filter Options")
 
     if not df.empty:
-        available_modules = df["Vehicle System"].unique()
+        available_modules = df["Module"].unique()
         available_severities = df["Severity"].unique()
 
         selected_modules = st.multiselect("Select Vehicle System(s):", available_modules, default=list(available_modules))
         selected_severities = st.multiselect("Select Severity Level(s):", available_severities, default=list(available_severities))
 
         filtered_df = df[
-            (df["Vehical System"].isin(selected_modules)) &
+            (df["Module"].isin(selected_modules)) &
             (df["Severity"].isin(selected_severities))
         ]
     else:
@@ -152,6 +152,7 @@ st.download_button("⬇️ Download as CSV", csv, "defects_filtered.csv", "text/
 excel_buffer = io.BytesIO()
 with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
     filtered_df.to_excel(writer, index=False, sheet_name="Defects")
+excel_buffer.seek(0)
 
 st.download_button(
     "📊 Download as Excel", excel_buffer.getvalue(),
