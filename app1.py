@@ -19,8 +19,8 @@ create_table()
 rows = get_all_defects()
 df = pd.DataFrame(rows, columns=[
     "ID", "Reported Date", "Module", "Description", "Severity",
-    "Status", "Assigned To", "Resolution Date", "Image", "Vehicle Model",
-    "Defect Category", "Reported By"
+    "Status", "Assigned To", "Resolution Date", "Image",
+    "Vehicle Model", "Reported By"  # Removed Defect Category
 ])
 
 st.markdown("### 📊 Project Summary")
@@ -67,7 +67,6 @@ with st.form("defect_form"):
 
     with col2:
         assigned_to = st.text_input("Assigned To")
-        defect_category = st.selectbox("Defect Category", ["Mechanical", "Electrical", "Software", "Others"])
         reported_by = st.text_input("Reported By")
         date_reported = st.date_input("Reported On", date.today())
         resolution_date = st.date_input("Resolution Date", date.today())
@@ -95,7 +94,7 @@ with st.form("defect_form"):
             insert_defect(
                 str(date_reported), final_module, description, severity, status,
                 assigned_to, str(resolution_date), image_path,
-                final_model, defect_category, reported_by
+                final_model, reported_by  # No defect_category
             )
             st.success("✅ Defect logged successfully!")
 
