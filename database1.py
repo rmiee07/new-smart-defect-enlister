@@ -1,15 +1,12 @@
 import sqlite3
 
-# Connect to SQLite database (or create it if it doesn't exist)
-conn = sqlite3.connect("defects.db", check_same_thread=False)
-c = conn.cursor()
-
-# Create the table if it doesn't exist
 def create_table():
+    conn = sqlite3.connect('defects.db')
+    c = conn.cursor()
     c.execute('''
         CREATE TABLE IF NOT EXISTS defects (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            date_reported TEXT,
+            reported_date TEXT,
             module TEXT,
             description TEXT,
             severity TEXT,
@@ -22,22 +19,26 @@ def create_table():
         )
     ''')
     conn.commit()
+    conn.close()
 
-# Insert new defect entry
-def insert_defect(date_reported, module, description, severity, status,
+def insert_defect(reported_date, module, description, severity, status,
                   assigned_to, resolution_date, image, vehicle_model, reported_by):
+    conn = sqlite3.connect('defects.db')
+    c = conn.cursor()
     c.execute('''
         INSERT INTO defects (
-            date_reported, module, description, severity, status,
+            reported_date, module, description, severity, status,
             assigned_to, resolution_date, image, vehicle_model, reported_by
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (
-        date_reported, module, description, severity, status,
-        assigned_to, resolution_date, image, vehicle_model, reported_by
-    ))
+    ''', (reported_date, module, description, severity, status,
+          assigned_to, resolution_date, image, vehicle_model, reported_by))
     conn.commit()
+    conn.close()
 
-# Retrieve all defects
 def get_all_defects():
-    c.execute("SELECT * FROM defects")
-    return c.fetchall()
+    conn = sqlite3.connect('defects.db')
+    c = conn.cursor()
+    c.execute('SELECT * FROM defects')
+    rows = c.fetchall()
+    conn.close()
+    return rows
