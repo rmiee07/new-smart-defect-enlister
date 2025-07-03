@@ -46,7 +46,7 @@ with st.form("defect_form"):
         module = st.selectbox("Module Name", [
     "Engine", "Transmission", "Braking System", "Electrical System",
     "Fuel System", "Suspension", "Cabin Controls", "Exhaust/Emission",
-    "Cooling System", "Steering System", "Others")]
+    "Cooling System", "Steering System", "Others"])
 # Show input box if "Others" is selected
 if module == "Others":
     custom_module = st.text_input("Please specify the system")
