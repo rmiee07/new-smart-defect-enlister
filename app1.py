@@ -105,14 +105,14 @@ with st.expander("🔍 Filter Defects"):
     st.subheader("🎛️ Filter Options")
 
     if not df.empty:
-        available_modules = df["Module"].unique()
+        available_modules = df["Vehicle System"].unique()
         available_severities = df["Severity"].unique()
 
-        selected_modules = st.multiselect("Select Module(s):", available_modules, default=list(available_modules))
+        selected_modules = st.multiselect("Select Vehicle System(s):", available_modules, default=list(available_modules))
         selected_severities = st.multiselect("Select Severity Level(s):", available_severities, default=list(available_severities))
 
         filtered_df = df[
-            (df["Module"].isin(selected_modules)) &
+            (df["Vehical System"].isin(selected_modules)) &
             (df["Severity"].isin(selected_severities))
         ]
     else:
