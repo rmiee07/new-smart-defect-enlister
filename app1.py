@@ -142,7 +142,7 @@ else:
     st.info("No defects match the selected filters.")
 
 # -----------------------------
-# 📤 Export Options
+# 📄 Export Options
 # -----------------------------
 st.subheader("⬇️ Download Filtered Data")
 
