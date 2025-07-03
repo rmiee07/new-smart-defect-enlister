@@ -1,5 +1,3 @@
-st.set_page_config(page_title="Vehicle-Parts Defect Enlister", page_icon="🚒", layout="wide")
-
 import streamlit as st
 from database1 import create_table, insert_defect, get_all_defects
 from datetime import date
@@ -8,6 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import io
 
+st.set_page_config(page_title="Vehicle-Parts Defect Enlister", page_icon="🚒", layout="wide")
 # -----------------------------
 # 📦 Initial Setup
 # -----------------------------
