@@ -108,7 +108,7 @@ st.download_button("Download as CSV", csv, "defects_filtered.csv", "text/csv")
 
 excel_buffer = io.BytesIO()
 with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
-    filtered_df.to_excel(writer, index=False, sheet_name="Defects")
+    filtered_df.to_excel(writer, index=False, sheet_name="Defects")        
     writer.save()
 st.download_button(
     "Download as Excel", excel_buffer.getvalue(),
@@ -126,5 +126,5 @@ for index, row in filtered_df.iterrows():
         try:
             st.image(row["Image"], caption=f"{row['Module']} – {row['Description'][:30]}...", use_column_width=True)
         except Exception as e:
-            st.error(f"Image could not be loaded for {row['Module']} - {e}
+           st.error(f"Image could not be loaded for {row['Module']} - {e}")
             
