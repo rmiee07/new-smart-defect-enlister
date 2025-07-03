@@ -1,3 +1,7 @@
+import os
+if os.path.exists("defects.db"):
+    os.remove("defects.db")
+
 import sqlite3
 
 def create_table():
