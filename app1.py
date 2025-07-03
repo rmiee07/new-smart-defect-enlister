@@ -109,7 +109,6 @@ st.download_button("Download as CSV", csv, "defects_filtered.csv", "text/csv")
 excel_buffer = io.BytesIO()
 with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
     filtered_df.to_excel(writer, index=False, sheet_name="Defects")        
-    writer.save()
 st.download_button(
     "Download as Excel", excel_buffer.getvalue(),
     "defects_filtered.xlsx",
