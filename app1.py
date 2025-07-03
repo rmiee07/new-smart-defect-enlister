@@ -1,6 +1,6 @@
 
 import streamlit as st
-from database import create_table, insert_defect, get_all_defects
+from database1 import create_table, insert_defect, get_all_defects
 from datetime import date
 import pandas as pd
 import matplotlib.pyplot as plt
