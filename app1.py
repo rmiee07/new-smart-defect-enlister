@@ -110,7 +110,7 @@ with st.form("defect_form"):
 # 🔍 Filter Defects
 # -----------------------------
 with st.expander("🔍 Filter Defects"):
-    st.subheader("🌛 Filter Options")
+    st.subheader("Filter Options")
 
     if not df.empty:
         available_modules = df["Module"].unique()
