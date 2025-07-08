@@ -90,6 +90,41 @@ with st.form("defect_form"):
                 image_path = os.path.join("uploads", image.name)
                 with open(image_path, "wb") as f:
                     f.write(image.getbuffer())
+# -----------------------------
+# 📂 Upload and Process Excel File
+# -----------------------------
+st.header("📂 Upload Defect Data from Excel")
+
+excel_file = st.file_uploader("Upload Excel File", type=["xlsx", "xls"])
+
+if excel_file is not None:
+    try:
+        uploaded_df = pd.read_excel(excel_file)
+        st.success("✅ File uploaded successfully!")
+        st.dataframe(uploaded_df)
+
+        # Optional: Show column summary
+        st.write("Columns detected:", uploaded_df.columns.tolist())
+
+        # Optional: Insert into DB
+        if st.button("📥 Import Records to Database"):
+            for _, row in uploaded_df.iterrows():
+                insert_defect(
+                    str(row["Reported Date"]),
+                    row["Module"],
+                    row["Description"],
+                    row["Severity"],
+                    row["Status"],
+                    row["Assigned To"],
+                    str(row["Resolution Date"]),
+                    "",  #No image in Excel upload
+                    row.get("Vehicle Model", "Unknown"),
+                    row.get("Reported By", "Unknown")
+                )
+            st.success("✅ All records imported successfully!")
+
+    except Exception as e:
+        st.error(f"❌ Failed to process the file: {e}")
 
             insert_defect(
                 str(date_reported), final_module, description, severity, status,
